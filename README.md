@@ -1,7 +1,6 @@
 # 1510_Hackathon
 
 ### Team Members
-Kirk Wong 
 
 Mike Sampson
 
@@ -13,3 +12,7 @@ Mike Sampson
 #### Cindy Lu
   - student number: A01057420
   - github: dafu2020
+  
+#### Kirk Wong 
+  - Student Number: A00883226
+  - Github: kshiftw
