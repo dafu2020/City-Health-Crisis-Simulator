@@ -5,7 +5,9 @@ Kirk Wong
 
 Mike Sampson
 
-Luke Mei
+#### Honghai Mei (Luke)
+  - student number: A01075487
+  - github: Finallystn
 
 
 #### Cindy Lu
