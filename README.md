@@ -2,12 +2,13 @@
 
 ### Team Members
 
-Mike Sampson
+#### Mike Sampson
+  - student number: A01189818
+  - github: jdbool
 
 #### Honghai Mei (Luke)
   - student number: A01075487
   - github: Finallystn
-
 
 #### Cindy Lu
   - student number: A01057420
