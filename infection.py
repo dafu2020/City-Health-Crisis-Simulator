@@ -49,12 +49,12 @@ def medical_assist(city: object) -> None:
     :precondition: city is a valid instance of City
     """
 
-    patients_per_doctor = 5
-    patient_prob_recovery_increase = 0.08
+    patients_per_doctor = 3
+    patient_prob_recovery_increase = 0.05
 
     citizens = city.get_citizens()
     # LIST COMPREHENSION
-    needs_assistance = [citizen for citizen in citizens if citizen.is_infected() and not citizen.is_medical_assisted()]
+    needs_assistance = [citizen for citizen in citizens if citizen.is_infected()]
 
     for citizen in citizens:
         if citizen.get_role() == 'medical' and not citizen.is_infected():
@@ -78,6 +78,6 @@ def print_statistics(statistics: (int, int, int)) -> None:
     """
 
     num_infected, num_recovered, num_deceased = statistics
-    print(f'⚠️ Infected: {num_infected}')
+    print(f'⚠ Infected: {num_infected}')
     print(f'✅ Recovered: {num_recovered}')
     print(f'❌ Deceased: {num_deceased}')

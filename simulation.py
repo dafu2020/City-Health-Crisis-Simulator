@@ -22,7 +22,10 @@ def simulation():
 
     # instantiate city object using num_population
     vancouver = City(num_population, num_medical_staff, num_ppe)
-    run_simulation(num_simulation_days, vancouver)
+    if num_simulation_days != -1:
+        run_simulation(num_simulation_days, vancouver)
+    else:
+        run_full_simulation(vancouver)
 
 
 def initialize_city() -> (int, int, int, int):
@@ -104,17 +107,23 @@ def run_simulation(day_number, city):
     print("----- Day {} -----".format(day_number + 1))
     infection.print_statistics(stats)
     print_person_stats(city)
-    # full simulation
-    # else:
-    #     num_days = 0
-    #     while city_obj.num_deceased <= city_obj.num_population or city_obj.num_recovered <= city_obj.num_population:
-    #         change_infected(city_obj)
-    #         change_recovered(city_obj)
-    #         infection.calculate_hp(city_obj)
-    #         infection.calculate_ppe(city_obj)
-    #         stats = calculate_statistics(city_obj)
-    #         # infection.print_statistics(stats, num_days)
-    #         num_days = num_days + 1
+
+# lists for plotting
+    #     day_counter.append(day + 1)
+    #     daily_stats.append(stats[0])
+# plot_statistics(day_counter, daily_stats)
+
+
+def run_full_simulation(city_obj):
+    num_days = 0
+    while city_obj.num_deceased <= city_obj.num_population or city_obj.num_recovered <= city_obj.num_population:
+        change_infected(city_obj)
+        change_recovered(city_obj)
+        infection.calculate_hp(city_obj)
+        infection.calculate_ppe(city_obj)
+        stats = calculate_statistics(city_obj)
+        # infection.print_statistics(stats, num_days)
+        num_days = num_days + 1
 
 
 def change_infected(city_obj):
