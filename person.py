@@ -191,16 +191,6 @@ class Person:
         if not self.__medical_assist:
             self.__medical_assist = True
 
-    def set_medical_assist(self) -> None:
-        """
-        A person has been assisted by the medical staff
-
-        :precondition: A person must have a __medical_assist attribute
-        :postcondition: if a person is already been assisted, do nothing; else, changed the __recovered to True
-        """
-        if not self.__medical_assist:
-            self.__medical_assist = True
-
     def set_ppe_equipped(self) -> None:
         """
         Equipped a Person with PPE
