@@ -32,7 +32,6 @@ class Person:
         self.__recovered = False
         self.__medical_assist = False
         self.__ppe = False
-        self.__deceased = False
 
     # getters for Person attributes
     def get_hp(self) -> int:
@@ -121,7 +120,7 @@ class Person:
         :precondition: A person must have a __deceased attribute
         :postcondition: True if person is alive, else False
         """
-        return self.__deceased
+        return self.__hp <= 0
 
     # setters for Person class
     def update_hp(self, new_hp: int) -> None:
@@ -200,13 +199,3 @@ class Person:
         """
         if not self.__ppe:
             self.__ppe = True
-
-    def set_deceased(self) -> None:
-        """
-        Call the death of a Person
-
-        :precondition: A person must have a __deceased attribute
-        :postcondition: if a person is dead, do nothing; else, changed the __deceased to True
-        """
-        if not self.__deceased:
-            self.__deceased = True
