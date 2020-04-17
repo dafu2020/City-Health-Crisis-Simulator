@@ -179,6 +179,7 @@ class Person:
         """
         if not self.__recovered:
             self.__recovered = True
+            self.__infected = False
 
     def set_medical_assist(self) -> None:
         """

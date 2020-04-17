@@ -6,6 +6,7 @@ import city
 import infection
 
 
+
 def simulation():
     # simulation_settings = initialize_city()
     # num_simulation_days = simulation_settings[0]
@@ -14,14 +15,13 @@ def simulation():
     # num_ppe = simulation_settings[3]
 
     # default numbers for testing instead of entering input everytime
-    num_simulation_days = 5 
-    num_population = 10
-    num_medical_staff = 3
+    num_simulation_days = 100
+    num_population = 100
+    num_medical_staff = 5
     num_ppe = 200
 
     # instantiate city object using num_population
     vancouver = city.City(num_population, num_medical_staff, num_ppe)
-
     run_simulation(num_simulation_days, vancouver)
 
 
@@ -54,9 +54,9 @@ def input_simulation_days():
 
 def input_settings(setting):
     input_string = {"days": "How many days to simulate? ",
-     "population": "How many people live in the city? ",
-     "staff": "How many medical staff members in the city? ",
-     "ppe": "How many Personal Protective Equipment (PPE) in the city? "}
+                    "population": "How many people live in the city? ",
+                    "staff": "How many medical staff members in the city? ",
+                    "ppe": "How many Personal Protective Equipment (PPE) in the city? "}
     num_setting = 0
     while num_setting <= 0:
         try:
@@ -66,17 +66,35 @@ def input_settings(setting):
     return num_setting
 
 
+# def print_person_stats(person_obj):
+#     print("HP:{}, Infected %: {:.2f}, Recovery %: {:.2f}, Infected?: {}, Recovered?: {}, Medical Assist?: {}".format(
+#         person_obj.get_hp(), person_obj.get_prob_infected(), person_obj.get_prob_recovery(), person_obj.is_infected(),
+#         person_obj.is_recovered(), person_obj.is_medical_assisted()))
+
+def print_person_stats(city_obj):
+    city_citizens_list = city_obj.get_citizens()
+    infected_list = [citizen for citizen in city_citizens_list if citizen.is_infected()]
+    for person_obj in infected_list:
+        print(
+            "HP:{}, Infected %: {:.2f}, Recovery %: {:.2f}, Infected?: {}, Recovered?: {}, Medical Assist?: {}".format(
+                person_obj.get_hp(), person_obj.get_prob_infected(), person_obj.get_prob_recovery(),
+                person_obj.is_infected(),
+                person_obj.is_recovered(), person_obj.is_medical_assisted()))
+
+
 def run_simulation(num_simulation_days, city_obj):
     # run simulation for X days
     if num_simulation_days != -1:
         for day in range(num_simulation_days):
+            infection.medical_assist(city_obj)
             change_infected(city_obj)
-            # change_recovered(city_obj)
-            # infection.calculate_hp(city_obj)
-            # infection.calculate_ppe(city_obj)
-            # stats = calculate_statistics(city_obj)
-            # infection.print_statistics(stats, day)
-
+            change_recovered(city_obj)
+            infection.calculate_hp(city_obj)
+            infection.calculate_ppe(city_obj)
+            stats = calculate_statistics(city_obj)
+            print("----- Day {} -----".format(day + 1))
+            infection.print_statistics(stats)
+            print_person_stats(city_obj)
     # full simulation
     # else:
     #     num_days = 0
@@ -91,37 +109,28 @@ def run_simulation(num_simulation_days, city_obj):
 
 
 def change_infected(city_obj):
-    # generates a random number for comparing against prob_infected
-    # generates another random number - if both random numbers are higher than prob_infected, they are infected
-
-    general_infected_rate = round(random.uniform(0.0, 1.0), 2)
-    print("general infected rate:", general_infected_rate)
-    # get list of person objects
+    general_infected_rate = round(random.uniform(0.0, 0.5), 2)
     city_citizens_list = city_obj.get_citizens()
-    print(len(city_citizens_list))
     for citizen in city_citizens_list:
-        if citizen.get_prob_infected() <= general_infected_rate:
-            individual_infected_rate = round(random.uniform(0.0, 1.0), 2)
-            if citizen.get_prob_infected() <= individual_infected_rate and not citizen.is_infected() \
+        if citizen.get_prob_infected() >= general_infected_rate:
+            individual_infected_rate = round(random.uniform(0.0, 0.4), 2)
+            if citizen.get_prob_infected() >= individual_infected_rate and not citizen.is_infected() \
                     and not citizen.is_recovered():
-                citizen.health_shifter()
+                citizen.set_infected()
 
 
 def change_recovered(city_obj):
-    # very similar to change_infected
-
-    general_recovered_rate = random.randint(0, 100)
+    general_recovered_rate = round(random.uniform(0.1, 1.0), 2)
     city_citizens_list = city_obj.get_citizens()
     for citizen in city_citizens_list:
-        if citizen.is_infected():
-            if citizen.get_prob_recovered() <= general_recovered_rate:
-                individual_recovered_rate = random.randint(0, 100)
-                if citizen.get_prob_recovered() <= individual_recovered_rate:
-                    citizen.set_recovered()
+        if citizen.is_infected() and citizen.get_prob_recovery() >= general_recovered_rate:
+            individual_recovered_rate = round(random.uniform(0.1, 0.8), 2)
+            if citizen.get_prob_recovery() >= individual_recovered_rate:
+                citizen.set_recovered()
 
 
 def calculate_statistics(city_obj):
-    city_citizens_list = city_obj.get_citizens() # get list of person objects
+    city_citizens_list = city_obj.get_citizens()
     count_infected = 0
     count_recovered = 0
     count_deceased = 0
