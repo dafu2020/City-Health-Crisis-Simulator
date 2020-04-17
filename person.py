@@ -34,7 +34,46 @@ class Person:
         self.__ppe = False
         self.__deceased = False
 
-        # include getters and setters for all variables(object attributes)
+    # getters for Person attributes
+    def get_hp(self) -> int:
+        """
+        Get the HP of a person
+
+        :precondition: Person must have an __hp attribute
+        :postcondition: get the hp of the Person
+        :return: the HP of the Person as an integer
+        """
+        return self.__hp
+
+    def get_prob_recovery(self) -> float:
+        """
+        Get the probability of recovery of a person
+
+        :precondition: Person must have an __prob_recovery attribute
+        :postcondition: get the probability of recovery of the Person
+        :return: the probability of recovery of the Person as an float
+        """
+        return self.__prob_recovery
+
+    def get_prob_infected(self) -> float:
+        """
+        Get the probability of getting virus infection of a person
+
+        :precondition: Person must have an __prob_infection attribute
+        :postcondition: get the probability of getting virus infection of the Person
+        :return: the probability of getting virus infection of the Person as an float
+        """
+        return self.__prob_infection
+
+    def get_role(self) -> str:
+        """
+        Get the occupational role of this person
+
+        :precondition: Person must have an __role attribute
+        :postcondition: get the occupational role of the Person
+        :return: the occupational role of the Person as a str
+        """
+        return self.__role
 
     def is_infected(self) -> bool:
         """
@@ -44,7 +83,7 @@ class Person:
         :postcondition: True if person is infected, else False
         :return: the boolean result
         """
-        return True if self.__infected else False
+        return True if self.__infected else False   # the use of syntax sugar!!!!! tetary expression
 
     def is_recovered(self) -> bool:
         """
@@ -56,7 +95,47 @@ class Person:
         """
         return True if self.__recovered else False
 
-    # def set_infected()
+    def is_medical_assisted(self) -> bool:
+        """
+        Verify whether a person gets medical assist
+
+        :precondition: A person must have a __medical_assist attribute
+        :postcondition: True if person is being assisted, else False
+        :return: the boolean result
+        """
+        return True if self.__medical_assist else False
+
+    def is_ppe_equipped(self) -> bool:
+        """
+        Verify whether a person is equipped with PPE (Personal Protective Equipment)
+
+        :precondition: A person must have a __ppe attribute
+        :postcondition: True if person is being equipped, else False
+        :return: the boolean result
+        """
+        return True if self.__ppe else False
+
+    def is_deceased(self) -> bool:
+        """
+        Verify whether a person is alive
+
+        :precondition: A person must have a __deceased attribute
+        :postcondition: True if person is alive, else False
+        :return: the boolean result
+        """
+        return True if self.__deceased else False
+
+    # is infected mutator = set_infected
+    def health_shifter(self) -> None:
+        """
+        Changing the health state of a person
+
+        :precondition: A person must have a A person must have a __infected attribute attribute
+        :postcondition: if a person is already infected, do nothing; else, changed the __infected to True
+        """
+        if not self.__infected:
+            self.__infected = True
+
     # sets infected attribute - if already infected, do nothing, else change to True
 
     # ... add more getters/setters
