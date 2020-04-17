@@ -4,7 +4,7 @@
 import random
 import city
 import infection
-
+import re
 
 
 def simulation():
@@ -60,7 +60,10 @@ def input_settings(setting):
     num_setting = 0
     while num_setting <= 0:
         try:
-            num_setting = int(input("{} (Enter a positive integer)\n".format(input_string[setting])))
+            num_setting = input("{} (Enter a positive integer)\n".format(input_string[setting]))
+            # num_setting = int(input("{} (Enter a positive integer)\n".format(input_string[setting])))
+            if not bool(re.match(r"^\d+$", num_setting)):
+                raise ValueError('This is not a valid input.')
         except ValueError:
             print("Error. Please enter a valid positive integer.")
     return num_setting
