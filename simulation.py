@@ -1,5 +1,5 @@
 # Correct use of slicing with lists
-# Syntactic sugar: at least one list comprehension and one dictionary comprehension
+# Correct use of at least one function from itertools
 
 import random
 import city
@@ -99,10 +99,10 @@ def change_infected(city_obj):
     print("general infected rate:", general_infected_rate)
     city_citizens_list = city_obj.get_citizens() # get list of person objects
     for citizen in city_citizens_list:
-        if citizen.get_prob_infected <= general_infected_rate:
+        if citizen.get_prob_infected() <= general_infected_rate:
             individual_infected_rate = random.randint(0, 100)  # I made up the numbers
             print("individual infected rate:", individual_infected_rate)
-            if citizen.get_prob_infected <= individual_infected_rate and not citizen.is_infected():
+            if citizen.get_prob_infected() <= individual_infected_rate and not citizen.is_infected() and not citizen.is_recovered():
                 citizen.set_infected() # sets infected attribute - if already infected, do nothing, else change to True
 
 
@@ -113,9 +113,9 @@ def change_recovered(city_obj):
     city_citizens_list = city_obj.get_citizens()
     for citizen in city_citizens_list:
         if citizen.is_infected():
-            if citizen.get_prob_recovered <= general_recovered_rate:
+            if citizen.get_prob_recovered() <= general_recovered_rate:
                 individual_recovered_rate = random.randint(0, 100)
-                if citizen.get_prob_recovered <= individual_recovered_rate:
+                if citizen.get_prob_recovered() <= individual_recovered_rate:
                     citizen.set_recovered()
 
 
