@@ -2,10 +2,9 @@
 # Correct use of at least one function from itertools
 
 import random
-import city
+from city import City
 import infection
 import re
-
 
 def simulation():
     # simulation_settings = initialize_city()
@@ -21,7 +20,7 @@ def simulation():
     num_ppe = 200
 
     # instantiate city object using num_population
-    vancouver = city.City(num_population, num_medical_staff, num_ppe)
+    vancouver = City(num_population, num_medical_staff, num_ppe)
     run_simulation(num_simulation_days, vancouver)
 
 
@@ -85,19 +84,25 @@ def print_person_stats(city_obj):
                 person_obj.is_recovered(), person_obj.is_medical_assisted()))
 
 
-def run_simulation(num_simulation_days, city_obj):
-    # run simulation for X days
-    if num_simulation_days != -1:
-        for day in range(num_simulation_days):
-            infection.medical_assist(city_obj)
-            change_infected(city_obj)
-            change_recovered(city_obj)
-            infection.calculate_hp(city_obj)
-            infection.calculate_ppe(city_obj)
-            stats = calculate_statistics(city_obj)
-            print("----- Day {} -----".format(day + 1))
-            infection.print_statistics(stats)
-            print_person_stats(city_obj)
+# FUNCTION DECORATOR
+def multiple_iterations(func):
+    def wrapper(num_iterations, *args, **kwargs):
+        for i in range(num_iterations):
+            func(i, *args, **kwargs)
+    return wrapper
+
+
+@multiple_iterations
+def run_simulation(day_number, city):
+    infection.medical_assist(city)
+    change_infected(city)
+    change_recovered(city)
+    infection.calculate_hp(city)
+    infection.calculate_ppe(city)
+    stats = calculate_statistics(city)
+    print("----- Day {} -----".format(day_number + 1))
+    infection.print_statistics(stats)
+    print_person_stats(city)
     # full simulation
     # else:
     #     num_days = 0
