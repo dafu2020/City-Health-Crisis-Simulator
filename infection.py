@@ -53,10 +53,12 @@ def medical_assist(city: object) -> None:
     patient_prob_recovery_increase = 0.08
 
     citizens = city.get_citizens()
+    # LIST COMPREHENSION
     needs_assistance = [citizen for citizen in citizens if citizen.is_infected() and not citizen.is_medical_assisted()]
 
     for citizen in citizens:
         if citizen.get_role() == 'medical' and not citizen.is_infected():
+            # RANGE FUNCTION
             for i in range(patients_per_doctor):
                 if len(needs_assistance) == 0:
                     return
