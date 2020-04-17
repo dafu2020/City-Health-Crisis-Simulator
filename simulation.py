@@ -6,6 +6,7 @@ import city
 import infection
 
 
+
 def simulation():
     # simulation_settings = initialize_city()
     # num_simulation_days = simulation_settings[0]
@@ -14,9 +15,9 @@ def simulation():
     # num_ppe = simulation_settings[3]
 
     # default numbers for testing instead of entering input everytime
-    num_simulation_days = 10
-    num_population = 10
-    num_medical_staff = 3
+    num_simulation_days = 100
+    num_population = 100
+    num_medical_staff = 5
     num_ppe = 200
 
     # instantiate city object using num_population
@@ -72,10 +73,11 @@ def input_settings(setting):
 
 def print_person_stats(city_obj):
     city_citizens_list = city_obj.get_citizens()
-    for index, person_obj in enumerate(city_citizens_list, 1):
+    infected_list = [citizen for citizen in city_citizens_list if citizen.is_infected()]
+    for person_obj in infected_list:
         print(
-            "{}: HP:{}, Infected %: {:.2f}, Recovery %: {:.2f}, Infected?: {}, Recovered?: {}, Medical Assist?: {}".format(
-                index, person_obj.get_hp(), person_obj.get_prob_infected(), person_obj.get_prob_recovery(),
+            "HP:{}, Infected %: {:.2f}, Recovery %: {:.2f}, Infected?: {}, Recovered?: {}, Medical Assist?: {}".format(
+                person_obj.get_hp(), person_obj.get_prob_infected(), person_obj.get_prob_recovery(),
                 person_obj.is_infected(),
                 person_obj.is_recovered(), person_obj.is_medical_assisted()))
 

@@ -34,9 +34,8 @@ def calculate_ppe(city: object) -> None:
             if num_ppe > 0:
                 num_ppe -= 1
                 citizen.update_prob_infected(0)
-            elif citizen.get_prob_infection() == 0:
+            elif citizen.get_prob_infected() == 0:
                 citizen.update_prob_infected(randint(1, 100))
-
     city.set_num_ppe(num_ppe)
 
 
@@ -54,7 +53,7 @@ def medical_assist(city: object) -> None:
     patient_prob_recovery_increase = 0.08
 
     citizens = city.get_citizens()
-    needs_assistance = [citizen for citizen in citizens if citizen.is_infected()]
+    needs_assistance = [citizen for citizen in citizens if citizen.is_infected() and not citizen.is_medical_assisted()]
 
     for citizen in citizens:
         if citizen.get_role() == 'medical' and not citizen.is_infected():
