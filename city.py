@@ -23,13 +23,18 @@ class City:
         self.__num_population = num_population
         self.__medical_staff = num_medical_staff
         self.__num_ppe = num_ppe
+        self.__num_infected = 0
         self.__num_deceased = 0
         self.__num_recovered = 0
         self.__city_citizens = []
-        self.__daily_decay = 5
+        self.__daily_decay = random.randint(5, 10)
         # Add Medical Stuff and Person into city_citizens
         self.instantiate_medical_stuff()
         self.instantiate_person()
+        # Update number of infected, deceased and recovered
+        self.update_num_infected()
+        self.update_num_deceased()
+        self.update_num_recovered()
 
     def get_num_population(self) -> int:
         """
@@ -91,7 +96,10 @@ class City:
         """
         Set Number of PPE
         """
-        check_number(new_ppe)
+        if not isinstance(new_ppe, int):
+            raise TypeError("You can't input a non-int type.")
+        if new_ppe < 0:
+            raise ValueError("PPE should be positive.")
         self.__num_ppe = new_ppe
 
     def set_num_deceased(self, new_deceased):
@@ -137,6 +145,30 @@ class City:
             initial_hp = person_attribute['initial_hp']
             person_object = Person(prob_infection, prob_recovery, initial_hp, 'medical')
             self.__city_citizens.append(person_object)
+
+    def update_num_infected(self):
+        """
+        Update the number of deceased
+        """
+        for person_object in self.__city_citizens:
+            if person_object.is_infected():
+                self.__num_infected += 1
+
+    def update_num_deceased(self):
+        """
+        Update the number of deceased
+        """
+        for person_object in self.__city_citizens:
+            if person_object.is_deceased():
+                self.__num_deceased += 1
+
+    def update_num_recovered(self):
+        """
+        Update the number of recovered
+        """
+        for person_object in self.__city_citizens:
+            if person_object.is_recovered():
+                self.__num_recovered += 1
 
 
 def check_number(attribute):
