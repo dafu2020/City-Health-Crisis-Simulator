@@ -2,6 +2,15 @@ from random import randint
 
 
 def calculate_hp(city: object) -> None:
+    """
+    Calculate HP.
+
+    Decays the HP of infected citizens by a fixed amount.
+
+    :param city: the City object
+    :precondition: city is a valid instance of City
+    """
+
     for citizen in city.get_citizens():
         if citizen.is_infected() and not citizen.is_recovered():
             new_hp = citizen.get_hp() - city.get_daily_decay()
@@ -9,6 +18,15 @@ def calculate_hp(city: object) -> None:
 
 
 def calculate_ppe(city: object) -> None:
+    """
+    Calculate personal protective equipment.
+
+    Consumes one PPE per medical worker and protects them from infection.
+
+    :param city: the City object
+    :precondition: city is a valid instance of City
+    """
+
     num_ppe = city.get_num_ppe()
 
     for citizen in city.get_citizens():
@@ -23,6 +41,15 @@ def calculate_ppe(city: object) -> None:
 
 
 def medical_assist(city: object) -> None:
+    """
+    Calculate medical assistances.
+
+    Lets healthy medical workers assist others and increase their recovery probability.
+
+    :param city: the City object
+    :precondition: city is a valid instance of City
+    """
+
     patients_per_doctor = 5
     patient_prob_recovery_increase = 8
 
@@ -40,6 +67,14 @@ def medical_assist(city: object) -> None:
 
 
 def print_statistics(statistics: (int, int, int)) -> None:
+    """
+    Pretty print statistics.
+
+    :param statistics: tuple of statistics (num_infected, num_recovered, num_deceased)
+    :precondition: statistics is a tuple of 3 ints
+    :postcondition: the printed text will be accurate and helpful
+    """
+
     num_infected, num_recovered, num_deceased = statistics
     print(f'⚠️ Infected: {num_infected}')
     print(f'✅ Recovered: {num_recovered}')
