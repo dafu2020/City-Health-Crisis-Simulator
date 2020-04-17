@@ -13,6 +13,7 @@ def simulation():
     # num_medical_staff = simulation_settings[2]
     # num_ppe = simulation_settings[3]
 
+    # default numbers for testing instead of entering input everytime
     num_simulation_days = 5
     num_population = 10
     num_medical_staff = 3
@@ -20,8 +21,6 @@ def simulation():
 
     # instantiate city object using num_population
     vancouver = city.City(num_population, num_medical_staff, num_ppe)
-    vancouver.instantiate_person()
-    vancouver.instantiate_medical_stuff()
 
     run_simulation(num_simulation_days, vancouver)
 
@@ -95,15 +94,17 @@ def change_infected(city_obj):
     # generates a random number for comparing against prob_infected
     # generates another random number - if both random numbers are higher than prob_infected, they are infected
 
-    general_infected_rate = random.randint(0, 100)  # I made up the numbers
+    general_infected_rate = round(random.uniform(0.0, 1.0), 2)
     print("general infected rate:", general_infected_rate)
-    city_citizens_list = city_obj.get_citizens() # get list of person objects
+    # get list of person objects
+    city_citizens_list = city_obj.get_citizens()
+    print(len(city_citizens_list))
     for citizen in city_citizens_list:
         if citizen.get_prob_infected() <= general_infected_rate:
-            individual_infected_rate = random.randint(0, 100)  # I made up the numbers
-            print("individual infected rate:", individual_infected_rate)
-            if citizen.get_prob_infected() <= individual_infected_rate and not citizen.is_infected() and not citizen.is_recovered():
-                citizen.set_infected() # sets infected attribute - if already infected, do nothing, else change to True
+            individual_infected_rate = round(random.uniform(0.0, 1.0), 2)
+            if citizen.get_prob_infected() <= individual_infected_rate and not citizen.is_infected() \
+                    and not citizen.is_recovered():
+                citizen.health_shifter()
 
 
 def change_recovered(city_obj):
