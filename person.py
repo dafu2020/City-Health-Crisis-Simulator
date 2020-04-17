@@ -136,7 +136,8 @@ class Person:
         """
         if new_hp >= 0:
             self.__hp = new_hp
-        raise ValueError("Person HP cannot be negative")
+        else:
+            raise ValueError("Person HP cannot be negative")
 
     def update_prob_recovery(self, new_prob_recovery: float) -> None:
         """
