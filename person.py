@@ -83,7 +83,7 @@ class Person:
         :postcondition: True if person is infected, else False
         :return: the boolean result
         """
-        return True if self.__infected else False  # the use of syntax sugar!!!!! tetary expression
+        return self.__infected
 
     def is_recovered(self) -> bool:
         """
@@ -93,7 +93,7 @@ class Person:
         :postcondition: True if person is recovered, else False
         :return: the boolean result
         """
-        return True if self.__recovered else False
+        return self.__recovered
 
     def is_medical_assisted(self) -> bool:
         """
@@ -103,7 +103,7 @@ class Person:
         :postcondition: True if person is being assisted, else False
         :return: the boolean result
         """
-        return True if self.__medical_assist else False
+        return self.__medical_assist
 
     def is_ppe_equipped(self) -> bool:
         """
@@ -112,7 +112,7 @@ class Person:
         :precondition: A person must have a __ppe attribute
         :postcondition: True if person is being equipped, else False
         """
-        return True if self.__ppe else False
+        return self.__ppe
 
     def is_deceased(self) -> bool:
         """
@@ -121,7 +121,7 @@ class Person:
         :precondition: A person must have a __deceased attribute
         :postcondition: True if person is alive, else False
         """
-        return True if self.__deceased else False
+        return self.__deceased
 
     # setters for Person class
     def update_hp(self, new_hp: int) -> None:
