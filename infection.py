@@ -37,3 +37,10 @@ def medical_assist(city: object) -> None:
                 patient = needs_assistance.pop()
                 new_prob_recovery = patient.get_prob_recovery() + patient_prob_recovery_increase
                 patient.set_prob_recovery(min(100, new_prob_recovery))
+
+
+def print_statistics(statistics: (int, int, int)) -> None:
+    num_infected, num_recovered, num_deceased = statistics
+    print(f'⚠️ Infected: {num_infected}')
+    print(f'✅ Recovered: {num_recovered}')
+    print(f'❌ Deceased: {num_deceased}')
