@@ -83,7 +83,7 @@ class Person:
         :postcondition: True if person is infected, else False
         :return: the boolean result
         """
-        return True if self.__infected else False   # the use of syntax sugar!!!!! tetary expression
+        return True if self.__infected else False  # the use of syntax sugar!!!!! tetary expression
 
     def is_recovered(self) -> bool:
         """
@@ -111,7 +111,6 @@ class Person:
 
         :precondition: A person must have a __ppe attribute
         :postcondition: True if person is being equipped, else False
-        :return: the boolean result
         """
         return True if self.__ppe else False
 
@@ -121,21 +120,101 @@ class Person:
 
         :precondition: A person must have a __deceased attribute
         :postcondition: True if person is alive, else False
-        :return: the boolean result
         """
         return True if self.__deceased else False
 
-    # is infected mutator = set_infected
-    def health_shifter(self) -> None:
+    # setters for Person class
+    def update_hp(self, new_hp: int) -> None:
         """
-        Changing the health state of a person
+        Update the HP of a person
 
-        :precondition: A person must have a A person must have a __infected attribute attribute
+        :param new_hp: an integer
+        :precondition: new_hp must be a positive integer;
+                        Person must have an __hp attribute
+        :postcondition: update the hp of the Person;
+                        raise ValueError if the new hp is a negative number
+        """
+        if new_hp >= 0:
+            self.__hp = new_hp
+        raise ValueError("Person HP cannot be negative")
+
+    def update_prob_recovery(self, new_prob_recovery: float) -> None:
+        """
+        Update the probability of recovery of a person
+
+        :param new_prob_recovery: a float
+        :precondition:new_prob_recovery must be a float;
+                        Person must have an __prob_recovery attribute
+        :postcondition: update the probability of recovery of the Person
+        """
+        self.__prob_recovery = new_prob_recovery
+
+    def update_prob_infected(self, new_prob_infected: int) -> None:
+        """
+        Update the probability of getting virus infection of a person
+
+        :precondition: Person must have an __prob_recovery attribute
+        :postcondition: update the probability of getting virus infection of the Person
+        """
+        self.__prob_infection = new_prob_infected
+
+    # is infected mutator = set_infected
+    def set_infected(self) -> None:
+        """
+        Virus infect a person
+
+        :precondition: A person must have a __infected attribute
         :postcondition: if a person is already infected, do nothing; else, changed the __infected to True
         """
         if not self.__infected:
             self.__infected = True
 
-    # sets infected attribute - if already infected, do nothing, else change to True
+    def set_recovered(self) -> None:
+        """
+        A person has recovered from COVID-19
 
-    # ... add more getters/setters
+        :precondition:  A person must have a __recovered attribute
+        :postcondition: if a person is already recovered, do nothing; else, changed the __recovered to True
+        """
+        if not self.__recovered:
+            self.__recovered = True
+
+    def set_medical_assist(self) -> None:
+        """
+        A person has been assisted by the medical staff
+
+        :precondition: A person must have a __medical_assist attribute
+        :postcondition: if a person is already been assisted, do nothing; else, changed the __recovered to True
+        """
+        if not self.__medical_assist:
+            self.__medical_assist = True
+
+    def set_medical_assist(self) -> None:
+        """
+        A person has been assisted by the medical staff
+
+        :precondition: A person must have a __medical_assist attribute
+        :postcondition: if a person is already been assisted, do nothing; else, changed the __recovered to True
+        """
+        if not self.__medical_assist:
+            self.__medical_assist = True
+
+    def set_ppe_equipped(self) -> None:
+        """
+        Equipped a Person with PPE
+
+        :precondition: A person must have a __ppe attribute
+        :postcondition: if a person is already been equipped with PPE, do nothing; else, changed the __ppe to True
+        """
+        if not self.__ppe:
+            self.__ppe = True
+
+    def set_deceased(self) -> None:
+        """
+        Call the death of a Person
+
+        :precondition: A person must have a __deceased attribute
+        :postcondition: if a person is dead, do nothing; else, changed the __deceased to True
+        """
+        if not self.__deceased:
+            self.__deceased = True
