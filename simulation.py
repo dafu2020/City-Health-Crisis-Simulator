@@ -69,10 +69,11 @@ def run_simulation(num_simulation_days, city_obj):
     # run simulation for X days
     if num_simulation_days != -1:
         for day in range(num_simulation_days):
+            infection.medical_assist(city_obj)
             change_infected(city_obj)
             change_recovered(city_obj)
             infection.calculate_hp(city_obj)
-            # infection.calculate_ppe(city_obj)
+            infection.calculate_ppe(city_obj)
             stats = calculate_statistics(city_obj)
             infection.print_statistics(stats)
 
