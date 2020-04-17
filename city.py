@@ -96,8 +96,6 @@ class City:
         """
         Set Number of PPE
         """
-        if not isinstance(new_ppe, int):
-            raise TypeError("You can't input a non-int type.")
         if new_ppe < 0:
             raise ValueError("PPE should be positive.")
         self.__num_ppe = new_ppe
@@ -178,8 +176,6 @@ def check_number(attribute):
     :raise TypeError: attribute is not an integer
     :raise ValueError: attribute is not positive
     """
-    if not isinstance(attribute, int):
-        raise TypeError("You can't input a non-int type.")
     if attribute <= 0:
         raise ValueError("Input should be positive.")
 
