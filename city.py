@@ -94,6 +94,24 @@ class City:
         check_number(new_ppe)
         self.__num_ppe = new_ppe
 
+    def set_num_deceased(self, new_deceased):
+        """
+        Set Number of Deceased
+        """
+        self.__num_deceased = new_deceased
+
+    def set_num_recovered(self, new_recovered):
+        """
+        Set Number of Recovered
+        """
+        self.__num_recovered = new_recovered
+
+    def set_daily_decay(self, new_decay):
+        """
+        Set Daily Decay
+        """
+        self.__daily_decay = new_decay
+
     def instantiate_person(self) -> None:
         """
         Instantiate the Person, and add citizen into 'citizens' list
