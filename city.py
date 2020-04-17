@@ -106,7 +106,7 @@ class City:
             initial_hp = person_attribute['initial_hp']
             # Invoke Class Person by Attributes
             person_object = Person(prob_infection, prob_recovery, initial_hp, 'citizen')
-            self.__city_citizens.append(person_object)
+            self.__city_citizens.append(person_object) 
 
     def instantiate_medical_stuff(self) -> None:
         """
