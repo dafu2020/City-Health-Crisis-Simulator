@@ -58,6 +58,7 @@ def medical_assist(city: object) -> None:
 
     for citizen in citizens:
         if citizen.get_role() == 'medical' and not citizen.is_infected():
+            # RANGE FUNCTION
             for i in range(patients_per_doctor):
                 if len(needs_assistance) == 0:
                     return
