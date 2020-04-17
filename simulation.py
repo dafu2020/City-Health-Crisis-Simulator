@@ -14,7 +14,7 @@ def simulation():
     # num_ppe = simulation_settings[3]
 
     # default numbers for testing instead of entering input everytime
-    num_simulation_days = 5
+    num_simulation_days = 5 
     num_population = 10
     num_medical_staff = 3
     num_ppe = 200
