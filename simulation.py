@@ -6,6 +6,7 @@ from city import City
 import infection
 import re
 
+
 def simulation():
     # simulation_settings = initialize_city()
     # num_simulation_days = simulation_settings[0]
