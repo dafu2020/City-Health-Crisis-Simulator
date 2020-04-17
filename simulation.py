@@ -71,7 +71,7 @@ def run_simulation(num_simulation_days, city_obj):
         for day in range(num_simulation_days):
             change_infected(city_obj)
             change_recovered(city_obj)
-            # infection.calculate_hp(city_obj)
+            infection.calculate_hp(city_obj)
             # infection.calculate_ppe(city_obj)
             stats = calculate_statistics(city_obj)
             infection.print_statistics(stats)
