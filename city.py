@@ -1,4 +1,5 @@
 import random
+import pprint
 from person import Person
 
 
@@ -19,7 +20,6 @@ class City:
         check_number(num_population)
         check_number(num_medical_staff)
         check_number(num_ppe)
-
         self.__num_population = num_population
         self.__medical_staff = num_medical_staff
         self.__num_ppe = num_ppe
@@ -27,6 +27,9 @@ class City:
         self.__num_recovered = 0
         self.__city_citizens = []
         self.__daily_decay = 5
+        # Add Medical Stuff and Person into city_citizens
+        self.instantiate_medical_stuff()
+        self.instantiate_person()
 
     def get_num_population(self) -> int:
         """
@@ -153,8 +156,8 @@ def main():
     """
     Test the Class City
     """
-    vancouver = City(675_200, 20_000, 1_000_000)
-    print(vancouver)
+    vancouver = City(10, 2, 1_000_000)
+    pprint.pprint(vancouver.get_citizens())
 
 
 if __name__ == '__main__':
