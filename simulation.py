@@ -79,8 +79,7 @@ def input_settings(setting):
 
 def print_person_stats(city_obj):
     city_citizens_list = city_obj.get_citizens()
-    # infected_list = [citizen for citizen in city_citizens_list if citizen.is_infected()]
-    infected_list = [citizen for citizen in city_citizens_list]
+    infected_list = [citizen for citizen in city_citizens_list if citizen.is_infected()]
     for person_obj in infected_list:
         print(
             "HP:{}, Infected %: {:.2f}, Recovery %: {:.2f}, Infected?: {}, Recovered?: {}, Medical Assist?: {}, "
@@ -120,7 +119,11 @@ def run_simulation(day_number, city):
 
 def run_full_simulation(city_obj):
     num_days = 0
-    while city_obj.num_deceased <= city_obj.num_population or city_obj.num_recovered <= city_obj.num_population:
+    # count_infected, count_recovered, count_deceased, count_healthy
+    num_recovered = calculate_statistics(city_obj)[1]
+    num_deceased = calculate_statistics(city_obj)[2]
+    while num_deceased <= city_obj.get_num_total_population() \
+            or num_recovered <= city_obj.get_num_total_population():
         change_infected(city_obj)
         change_recovered(city_obj)
         infection.calculate_hp(city_obj)
@@ -128,6 +131,8 @@ def run_full_simulation(city_obj):
         stats = calculate_statistics(city_obj)
         # infection.print_statistics(stats, num_days)
         num_days = num_days + 1
+        num_recovered = calculate_statistics(city_obj)[1]
+        num_deceased = calculate_statistics(city_obj)[2]
 
 
 def change_infected(city_obj):
@@ -165,8 +170,7 @@ def calculate_statistics(city_obj):
         elif citizen.is_deceased():
             count_deceased = count_deceased + 1
 
-    count_healthy = city_obj.get_num_population() + city_obj.get_num_medical_staff() \
-                    - count_deceased - count_recovered - count_infected
+    count_healthy = city_obj.get_num_total_population() - count_deceased - count_recovered - count_infected
 
     return count_infected, count_recovered, count_deceased, count_healthy
 

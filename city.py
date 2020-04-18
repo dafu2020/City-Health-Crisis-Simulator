@@ -54,6 +54,12 @@ class City:
         """
         return self.__medical_staff
 
+    def get_num_total_population(self) -> int:
+        """
+        Get Total Number of Population
+        """
+        return self.__num_population + self.__medical_staff
+
     def get_num_ppe(self) -> int:
         """
         Get Number of Personal Protective Equipment
