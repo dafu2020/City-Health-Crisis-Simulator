@@ -27,7 +27,13 @@ class City:
         self.__num_deceased = 0
         self.__num_recovered = 0
         self.__city_citizens = []
-        self.__daily_decay = random.randint(5, 10)
+        self.__daily_decay = random.randint(10, 20)
+        # Add the names of all elements into a Set
+        self.__all_element_set = set()
+        self.update_set()
+        # Add the names of all elements into a Set
+        self.__all_element_set = set()
+        self.update_set()
         # Add Medical Stuff and Person into city_citizens
         self.instantiate_medical_stuff()
         self.instantiate_person()
@@ -48,6 +54,12 @@ class City:
         """
         return self.__medical_staff
 
+    def get_num_total_population(self) -> int:
+        """
+        Get Total Number of Population
+        """
+        return self.__num_population + self.__medical_staff
+
     def get_num_ppe(self) -> int:
         """
         Get Number of Personal Protective Equipment
@@ -60,23 +72,35 @@ class City:
         """
         return self.__city_citizens
 
-    def get_daily_decay(self):
+    def get_daily_decay(self) -> int:
         """
         Get Daily Decay
         """
         return self.__daily_decay
 
-    def get_deceased(self):
+    def get_num_infected(self) -> int:
+        """
+        Get Number of Infected
+        """
+        return self.__num_infected
+
+    def get_num_deceased(self) -> int:
         """
         Get Number of Deceased
         """
         return self.__daily_decay
 
-    def get_recovered(self):
+    def get_num_recovered(self) -> int:
         """
         Get Number of Recovery
         """
         return self.__num_recovered
+
+    def get_all_element_set(self) -> set:
+        """
+        Get the set that has all elements
+        """
+        return self.__all_element_set
 
     def set_num_population(self, new_population: int) -> None:
         """
@@ -100,19 +124,19 @@ class City:
             raise ValueError("PPE should be positive.")
         self.__num_ppe = new_ppe
 
-    def set_num_deceased(self, new_deceased):
+    def set_num_deceased(self, new_deceased: int) -> None:
         """
         Set Number of Deceased
         """
         self.__num_deceased = new_deceased
 
-    def set_num_recovered(self, new_recovered):
+    def set_num_recovered(self, new_recovered: int) -> None:
         """
         Set Number of Recovered
         """
         self.__num_recovered = new_recovered
 
-    def set_daily_decay(self, new_decay):
+    def set_daily_decay(self, new_decay: int) -> None:
         """
         Set Daily Decay
         """
@@ -144,7 +168,7 @@ class City:
             person_object = Person(prob_infection, prob_recovery, initial_hp, 'medical')
             self.__city_citizens.append(person_object)
 
-    def update_num_infected(self):
+    def update_num_infected(self) -> None:
         """
         Update the number of deceased
         """
@@ -152,7 +176,7 @@ class City:
             if person_object.is_infected():
                 self.__num_infected += 1
 
-    def update_num_deceased(self):
+    def update_num_deceased(self) -> None:
         """
         Update the number of deceased
         """
@@ -160,7 +184,7 @@ class City:
             if person_object.is_deceased():
                 self.__num_deceased += 1
 
-    def update_num_recovered(self):
+    def update_num_recovered(self) -> None:
         """
         Update the number of recovered
         """
@@ -168,8 +192,15 @@ class City:
             if person_object.is_recovered():
                 self.__num_recovered += 1
 
+    def update_set(self) -> None:
+        """
+        Update the set that has all names
+        """
+        self.__all_element_set = {'num_population', 'num_medical_staff', 'num_ppe', 'num_infected', 'num_deceased',
+                                  'num_recovered', 'city_citizens', 'daily_decay'}
 
-def check_number(attribute):
+
+def check_number(attribute) -> None:
     """
     A Helper function that checks the parameter of Class City
 
@@ -198,7 +229,7 @@ def generate_attribute() -> dict:
     return attribute
 
 
-def main():
+def main() -> None:
     """
     Test the Class City
     """

@@ -168,6 +168,7 @@ class Person:
         """
         if not self.__infected:
             self.__infected = True
+            self.__recovered = False
 
     def set_recovered(self) -> None:
         """
@@ -199,3 +200,7 @@ class Person:
         """
         if not self.__ppe:
             self.__ppe = True
+
+    def set_deceased(self) -> None:
+        self.__infected = False
+        self.__recovered = False

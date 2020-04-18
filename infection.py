@@ -1,4 +1,4 @@
-from random import randint
+from random import uniform
 
 
 def calculate_hp(city: object) -> None:
@@ -15,6 +15,8 @@ def calculate_hp(city: object) -> None:
         if citizen.is_infected() and not citizen.is_recovered():
             new_hp = citizen.get_hp() - city.get_daily_decay()
             citizen.update_hp(max(new_hp, 0))
+            if citizen.get_hp() == 0:
+                citizen.set_deceased()
 
 
 def calculate_ppe(city: object) -> None:
@@ -35,7 +37,7 @@ def calculate_ppe(city: object) -> None:
                 num_ppe -= 1
                 citizen.update_prob_infected(0)
             elif citizen.get_prob_infected() == 0:
-                citizen.update_prob_infected(randint(1, 100))
+                citizen.update_prob_infected(round(uniform(0.05, 0.12), 2))
     city.set_num_ppe(num_ppe)
 
 
@@ -68,16 +70,17 @@ def medical_assist(city: object) -> None:
                 patient.set_medical_assist()
 
 
-def print_statistics(statistics: (int, int, int)) -> None:
+def print_statistics(statistics: (int, int, int, int)) -> None:
     """
     Pretty print statistics.
 
-    :param statistics: tuple of statistics (num_infected, num_recovered, num_deceased)
-    :precondition: statistics is a tuple of 3 ints
+    :param statistics: tuple of statistics (num_infected, num_recovered, num_deceased, num_healthy)
+    :precondition: statistics is a tuple of 4 ints
     :postcondition: the printed text will be accurate and helpful
     """
 
-    num_infected, num_recovered, num_deceased = statistics
+    num_infected, num_recovered, num_deceased, num_healthy = statistics
+    print(f'✓ Healthy: {num_healthy}')
     print(f'⚠ Infected: {num_infected}')
     print(f'✅ Recovered: {num_recovered}')
     print(f'❌ Deceased: {num_deceased}')
