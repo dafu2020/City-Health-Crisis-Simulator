@@ -79,13 +79,15 @@ def input_settings(setting):
 
 def print_person_stats(city_obj):
     city_citizens_list = city_obj.get_citizens()
-    infected_list = [citizen for citizen in city_citizens_list if citizen.is_infected()]
+    # infected_list = [citizen for citizen in city_citizens_list if citizen.is_infected()]
+    infected_list = [citizen for citizen in city_citizens_list]
     for person_obj in infected_list:
         print(
-            "HP:{}, Infected %: {:.2f}, Recovery %: {:.2f}, Infected?: {}, Recovered?: {}, Medical Assist?: {}".format(
+            "HP:{}, Infected %: {:.2f}, Recovery %: {:.2f}, Infected?: {}, Recovered?: {}, Medical Assist?: {}, "
+            "Deceased: {}".format(
                 person_obj.get_hp(), person_obj.get_prob_infected(), person_obj.get_prob_recovery(),
                 person_obj.is_infected(),
-                person_obj.is_recovered(), person_obj.is_medical_assisted()))
+                person_obj.is_recovered(), person_obj.is_medical_assisted(), person_obj.is_deceased()))
 
 
 # FUNCTION DECORATOR
@@ -93,14 +95,15 @@ def multiple_iterations(func):
     def wrapper(num_iterations, *args, **kwargs):
         for i in range(num_iterations):
             func(i, *args, **kwargs)
+
     return wrapper
 
 
 @multiple_iterations
 def run_simulation(day_number, city):
     infection.medical_assist(city)
-    change_infected(city)
     change_recovered(city)
+    change_infected(city)
     infection.calculate_hp(city)
     infection.calculate_ppe(city)
     stats = calculate_statistics(city)
@@ -108,9 +111,10 @@ def run_simulation(day_number, city):
     infection.print_statistics(stats)
     print_person_stats(city)
 
+
 # lists for plotting
-    #     day_counter.append(day + 1)
-    #     daily_stats.append(stats[0])
+#     day_counter.append(day + 1)
+#     daily_stats.append(stats[0])
 # plot_statistics(day_counter, daily_stats)
 
 
@@ -141,7 +145,7 @@ def change_recovered(city_obj):
     general_recovered_rate = round(random.uniform(0.1, 1.0), 2)
     city_citizens_list = city_obj.get_citizens()
     for citizen in city_citizens_list:
-        if citizen.is_infected() and citizen.get_prob_recovery() >= general_recovered_rate:
+        if citizen.is_infected() and not citizen.is_deceased() and citizen.get_prob_recovery() >= general_recovered_rate:
             individual_recovered_rate = round(random.uniform(0.1, 0.8), 2)
             if citizen.get_prob_recovery() >= individual_recovered_rate:
                 citizen.set_recovered()
@@ -156,12 +160,15 @@ def calculate_statistics(city_obj):
     for citizen in city_citizens_list:
         if citizen.is_infected():
             count_infected = count_infected + 1
-        if citizen.is_recovered():
+        elif citizen.is_recovered():
             count_recovered = count_recovered + 1
-        if citizen.is_deceased():
+        elif citizen.is_deceased():
             count_deceased = count_deceased + 1
 
-    return count_infected, count_recovered, count_deceased
+    count_healthy = city_obj.get_num_population() + city_obj.get_num_medical_staff() \
+                    - count_deceased - count_recovered - count_infected
+
+    return count_infected, count_recovered, count_deceased, count_healthy
 
 
 def main():

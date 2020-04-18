@@ -27,7 +27,10 @@ class City:
         self.__num_deceased = 0
         self.__num_recovered = 0
         self.__city_citizens = []
-        self.__daily_decay = random.randint(5, 10)
+        self.__daily_decay = random.randint(10, 20)
+        # Add the names of all elements into a Set
+        self.__all_element_set = set()
+        self.update_set()
         # Add the names of all elements into a Set
         self.__all_element_set = set()
         self.update_set()
