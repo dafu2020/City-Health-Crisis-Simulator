@@ -3,9 +3,15 @@ from city import City
 import infection
 import re
 import itertools
+import api
 
 
 def simulation():
+    """ Run the simulation program.
+
+    :precondition: no precondition
+    :postcondition: the simulation is executed properly
+    """
     simulation_settings = initialize_city()
     num_simulation_days = simulation_settings[0]
     num_population = simulation_settings[1]
@@ -18,17 +24,34 @@ def simulation():
         run_simulation(num_simulation_days, vancouver)
     else:
         run_full_simulation(vancouver)
+    confirmed_cases_in_canada = api.get_canada_statistic()
+    api.get_latest_statistic(confirmed_cases_in_canada)
 
 
 def initialize_city() -> (int, int, int, int):
-    num_simulation_days = input_simulation_days()
+    """ Get the user's input in order to initialize the city.
+
+    :precondition: no precondition
+    :postcondition: the values entered by the user are returned as integers
+    :return: tuple of 4 integers representing the number of simulated days, population, medical staff size, and number
+    of ppe
+    """
+    num_simulation_days = input_simulation_type()
     num_population = input_settings("population")
     num_medical_staff = input_settings("staff")
     num_ppe = input_settings("ppe")
     return num_simulation_days, num_population, num_medical_staff, num_ppe
 
 
-def input_simulation_days():
+def input_simulation_type() -> int:
+    """ Get the user's input for the simulation type.
+
+    :precondition:
+    :postcondition:
+    :return:
+    """
+    print("Welcome to the City Health Crisis Simulator. Here, we mimic the operation of a hospital during the COVID-19"
+          "crisis. This program evaluates ...")
     simulation_type = input("Select the type of simulation:\n1) Simulation for a defined number of days\n2) Full "
                             "simulation until the end\n")
     while simulation_type.strip() != "1" and simulation_type.strip() != "2":
@@ -91,10 +114,6 @@ def run_simulation(day_number, city):
     print("----- Day {} -----".format(day_number + 1))
     infection.print_statistics(stats)
     print_person_stats(city)
-# lists for plotting
-#     day_counter.append(day + 1)
-#     daily_stats.append(stats[0])
-# plot_statistics(day_counter, daily_stats)
 
 
 def daily_calculations(city_obj):
@@ -139,7 +158,8 @@ def change_recovered(city_obj):
     general_recovered_rate = round(random.uniform(0.1, 1.0), 2)
     city_citizens_list = city_obj.get_citizens()
     for citizen in city_citizens_list:
-        if citizen.is_infected() and not citizen.is_deceased() and citizen.get_prob_recovery() >= general_recovered_rate:
+        if citizen.is_infected() and not citizen.is_deceased() and \
+                citizen.get_prob_recovery() >= general_recovered_rate:
             individual_recovered_rate = round(random.uniform(0.1, 0.8), 2)
             if citizen.get_prob_recovery() >= individual_recovered_rate:
                 citizen.set_recovered()
