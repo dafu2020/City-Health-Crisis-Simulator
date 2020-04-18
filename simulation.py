@@ -50,10 +50,10 @@ def input_simulation_type() -> int:
     :postcondition:
     :return:
     """
-    print("Welcome to the City Health Crisis Simulator. Here, we mimic the operation of a hospital during the COVID-19"
-          "crisis. This program evaluates ...")
-    simulation_type = input("Select the type of simulation:\n1) Simulation for a defined number of days\n2) Full "
-                            "simulation until the end\n")
+    print("Welcome to the City Health Crisis Simulator. The program attempts to model the operation of a hospital "
+          "during the COVID-19 crisis and evaluates the number of people that will become infected over time.")
+    simulation_type = input("To begin, select the type of simulation:\n1) Simulation for a defined number of days\n"
+                            "2) Full simulation until the end\n")
     while simulation_type.strip() != "1" and simulation_type.strip() != "2":
         simulation_type = input("Invalid selection. Select the type of simulation:\n1) Simulation for a defined number "
                                 "of days\n2) Full simulation until the end\n")
