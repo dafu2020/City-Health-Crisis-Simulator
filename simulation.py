@@ -36,19 +36,19 @@ def initialize_city() -> (int, int, int, int):
     :return: tuple of 4 integers representing the number of simulated days, population, medical staff size, and number
     of ppe
     """
-    num_simulation_days = input_simulation_type()
+    num_simulation_days = input_simulation_days()
     num_population = input_settings("population")
     num_medical_staff = input_settings("staff")
     num_ppe = input_settings("ppe")
     return num_simulation_days, num_population, num_medical_staff, num_ppe
 
 
-def input_simulation_type() -> int:
-    """ Get the user's input for the simulation type.
+def input_simulation_days() -> int:
+    """ Get the user's input for the simulation type and the amount of days to simulate.
 
     :precondition:
-    :postcondition:
-    :return:
+    :postcondition: the
+    :return: an integer representing the number of days to simulate
     """
     print("Welcome to the City Health Crisis Simulator. The program attempts to model the operation of a hospital "
           "during the COVID-19 crisis and evaluates the number of people that will become infected over time.")
@@ -98,6 +98,13 @@ def print_person_stats(city_obj):
 
 # FUNCTION DECORATOR
 def multiple_iterations(func):
+    """ Decorate the run_simulation function.
+
+    :param func: the function to decorate
+    :precondition: run_simulation is the function passed to this function
+    :postcondition: the wrapper is sucessfully returned
+    :return: the function wrapper to iterate
+    """
     def wrapper(num_iterations, *args, **kwargs):
         # ITERTOOLS FUNCTION
         for i in itertools.count(0):
@@ -108,7 +115,14 @@ def multiple_iterations(func):
 
 
 @multiple_iterations
-def run_simulation(day_number, city):
+def run_simulation(day_number: int, city: object):
+    """ Run the simulation for day_number amount of days.
+
+    :param day_number: a number of days to simulate
+    :param city: a city object
+    :precondition: day_number is a positive integer and city is a well-formed city object
+    :postcondition: the simulation is properly run for the day_number amount of days
+    """
     daily_calculations(city)
     stats = calculate_statistics(city)
     print("----- Day {} -----".format(day_number + 1))
