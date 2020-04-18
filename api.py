@@ -50,15 +50,15 @@ def print_outbreak_data(outbreak_data_dictionary: dict) -> None:
                     print out a educational message telling people to stay at home
     """
     print(f'\nLet\'s take a look of what is happening in Canada:\n')
-    time.sleep(3)
+    time.sleep(2)
 
     for date, case_number in outbreak_data_dictionary.items():
         print(f'On day {date}, we have {case_number} confirmed case for COVID-19')
-    time.sleep(3)
+    time.sleep(2)
     print(f'\nThe time has now come for us all to do more, you must stay at home. \n'
           f'This is the critical thing we must do to stop the disease spreading. \n'
           f'Please only leave your house when necessary and for the very limited purposes.\n'
-          f'Please respect the work from our medical staff, together, we can flatten tht curve!\n')
+          f'Please respect the work from our medical staff, together, we can flatten that curve!\n')
 
 
 def main():
@@ -71,4 +71,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
