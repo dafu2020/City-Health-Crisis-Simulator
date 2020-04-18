@@ -1,5 +1,5 @@
-# Correct use of slicing with lists
 # Correct use of at least one function from itertools
+# enumerate
 
 import random
 from city import City
@@ -15,10 +15,10 @@ def simulation():
     # num_ppe = simulation_settings[3]
 
     # default numbers for testing instead of entering input everytime
-    num_simulation_days = 100
-    num_population = 100
-    num_medical_staff = 5
-    num_ppe = 200
+    num_simulation_days = -1
+    num_population = 10000
+    num_medical_staff = 50
+    num_ppe = 5000
 
     # instantiate city object using num_population
     vancouver = City(num_population, num_medical_staff, num_ppe)
@@ -100,39 +100,42 @@ def multiple_iterations(func):
 
 @multiple_iterations
 def run_simulation(day_number, city):
-    infection.medical_assist(city)
-    change_recovered(city)
-    change_infected(city)
-    infection.calculate_hp(city)
-    infection.calculate_ppe(city)
+    daily_calculations(city)
     stats = calculate_statistics(city)
     print("----- Day {} -----".format(day_number + 1))
     infection.print_statistics(stats)
-    print_person_stats(city)
-
-
+    # print_person_stats(city)
 # lists for plotting
 #     day_counter.append(day + 1)
 #     daily_stats.append(stats[0])
 # plot_statistics(day_counter, daily_stats)
 
 
+def daily_calculations(city_obj):
+    infection.medical_assist(city_obj)
+    change_recovered(city_obj)
+    change_infected(city_obj)
+    infection.calculate_hp(city_obj)
+    infection.calculate_ppe(city_obj)
+
+
 def run_full_simulation(city_obj):
-    num_days = 0
-    # count_infected, count_recovered, count_deceased, count_healthy
+    num_days = 1
     num_recovered = calculate_statistics(city_obj)[1]
     num_deceased = calculate_statistics(city_obj)[2]
-    while num_deceased <= city_obj.get_num_total_population() \
-            or num_recovered <= city_obj.get_num_total_population():
-        change_infected(city_obj)
-        change_recovered(city_obj)
-        infection.calculate_hp(city_obj)
-        infection.calculate_ppe(city_obj)
+    num_healthy = calculate_statistics(city_obj)[3]
+    while num_recovered + num_deceased < city_obj.get_num_total_population():
+        # if there is just one healthy person left, there is nobody to infect them
+        if num_healthy == 1 and num_recovered + num_deceased == city_obj.get_num_total_population():
+            break
+        daily_calculations(city_obj)
         stats = calculate_statistics(city_obj)
-        # infection.print_statistics(stats, num_days)
+        print("----- Day {} -----".format(num_days + 1))
+        infection.print_statistics(stats)
         num_days = num_days + 1
         num_recovered = calculate_statistics(city_obj)[1]
         num_deceased = calculate_statistics(city_obj)[2]
+        num_healthy = calculate_statistics(city_obj)[3]
 
 
 def change_infected(city_obj):
