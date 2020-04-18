@@ -58,7 +58,7 @@ def input_simulation_days():
 def input_settings(setting):
     input_string = {"days": "How many days to simulate? ",
                     "population": "How many people live in the city? ",
-                    "staff": "How many medical staff members in the city? ",
+                    "staff": "In addition to the population, how many medical staff members in the city? ",
                     "ppe": "How many Personal Protective Equipment (PPE) in the city? "}
     num_setting = 0
     while num_setting <= 0:
@@ -71,11 +71,6 @@ def input_settings(setting):
             print("Error. Please enter a valid positive integer.")
     return num_setting
 
-
-# def print_person_stats(person_obj):
-#     print("HP:{}, Infected %: {:.2f}, Recovery %: {:.2f}, Infected?: {}, Recovered?: {}, Medical Assist?: {}".format(
-#         person_obj.get_hp(), person_obj.get_prob_infected(), person_obj.get_prob_recovery(), person_obj.is_infected(),
-#         person_obj.is_recovered(), person_obj.is_medical_assisted()))
 
 def print_person_stats(city_obj):
     city_citizens_list = city_obj.get_citizens()
