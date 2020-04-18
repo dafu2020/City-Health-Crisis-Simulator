@@ -20,6 +20,10 @@ class City:
         >>> vancouver = City(10000, 100, 20000)
         >>> vancouver.get_num_population()
         10000
+        >>> vancouver.get_num_medical_staff()
+        100
+        >>> vancouver.get_num_ppe()
+        20000
         """
         # Check Parameter, Raise an Error if they are not positive or not integer
         check_number(num_population)
