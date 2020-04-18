@@ -1,6 +1,3 @@
-# Correct use of at least one function from itertools
-# enumerate
-
 import random
 from city import City
 import infection
@@ -9,17 +6,17 @@ import itertools
 
 
 def simulation():
-    # simulation_settings = initialize_city()
-    # num_simulation_days = simulation_settings[0]
-    # num_population = simulation_settings[1]
-    # num_medical_staff = simulation_settings[2]
-    # num_ppe = simulation_settings[3]
+    simulation_settings = initialize_city()
+    num_simulation_days = simulation_settings[0]
+    num_population = simulation_settings[1]
+    num_medical_staff = simulation_settings[2]
+    num_ppe = simulation_settings[3]
 
-    # default numbers for testing instead of entering input everytime
-    num_simulation_days = 20
-    num_population = 10000
-    num_medical_staff = 50
-    num_ppe = 5000
+    # default numbers for testing instead of entering input every time
+    # num_simulation_days = -1
+    # num_population = 10000
+    # num_medical_staff = 50
+    # num_ppe = 5000
 
     # instantiate city object using num_population
     vancouver = City(num_population, num_medical_staff, num_ppe)
@@ -64,10 +61,10 @@ def input_settings(setting):
     num_setting = 0
     while num_setting <= 0:
         try:
-            num_setting = input("{} (Enter a positive integer)\n".format(input_string[setting]))
-            # Regex for limiting the num_setting, pure numbers only
-            if not bool(re.match(r"^\d+$", num_setting)):
-                raise ValueError('This is not a valid input.')
+            num_setting = int(input("{} (Enter a positive integer)\n".format(input_string[setting])))
+            # REGEX for limiting the num_setting, pure numbers only
+            if not bool(re.match(r"^\d+$", str(num_setting))):
+                print('Invalid input. Please try again.')
         except ValueError:
             print("Error. Please enter a valid positive integer.")
     return num_setting
@@ -78,6 +75,7 @@ def print_person_stats(city_obj):
     infected_list = [citizen for citizen in city_citizens_list if citizen.is_infected() and citizen.get_hp() < 3]
     if infected_list:
         print("People in critical condition:")
+        # ENUMERATE FUNCTION
         for index, person_obj in enumerate(infected_list, 1):
             print(
                 "{}: HP:{}, Infected %: {:.2f}, Recovery %: {:.2f}, Infected?: {}, Recovered?: {}, "
