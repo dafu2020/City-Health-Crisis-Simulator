@@ -12,12 +12,6 @@ def simulation():
     num_medical_staff = simulation_settings[2]
     num_ppe = simulation_settings[3]
 
-    # default numbers for testing instead of entering input every time
-    # num_simulation_days = -1
-    # num_population = 10000
-    # num_medical_staff = 50
-    # num_ppe = 5000
-
     # instantiate city object using num_population
     vancouver = City(num_population, num_medical_staff, num_ppe)
     if num_simulation_days != -1:
@@ -27,12 +21,6 @@ def simulation():
 
 
 def initialize_city() -> (int, int, int, int):
-    # ask for user input
-    # num_simulation_days is a positive integer >= 1 or -1 if full simulation selected
-    # handle exceptions for invalid num_simulation_days
-    # handle exceptions for all inputs (values can't be negative and any other inputs that may be invalid)
-    # returns tuple (num_simulation_days, num_population, num_medical_staff, num_ppe)
-
     num_simulation_days = input_simulation_days()
     num_population = input_settings("population")
     num_medical_staff = input_settings("staff")
