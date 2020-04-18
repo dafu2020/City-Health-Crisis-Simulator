@@ -2,6 +2,7 @@ import requests
 import time
 import json
 
+
 # USING COVID-19 API
 def get_canada_statistic() -> list:
     """ Fetch the number of COVID-19 confirmed case in Canada
@@ -28,7 +29,8 @@ def get_latest_statistic(outbreak_statistic: list) -> None:
                     from the latest three report
     """
     date_list = []
-    for i in outbreak_statistic[-3:]:   # USING LIST SLICING
+    # USING LIST SLICING
+    for i in outbreak_statistic[-3:]:
         date_list.append(i['Date'])
 
     confirmed_list = []

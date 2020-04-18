@@ -242,7 +242,7 @@ class Person:
         """
         self.__prob_recovery = new_prob_recovery
 
-    def update_prob_infected(self, new_prob_infected: int) -> None:
+    def update_prob_infected(self, new_prob_infected: float) -> None:
         """
         Update the probability of getting virus infection of a person
 

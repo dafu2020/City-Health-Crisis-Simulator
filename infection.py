@@ -1,7 +1,8 @@
 from random import uniform
+from city import City
 
 
-def calculate_hp(city: object) -> None:
+def calculate_hp(city: City) -> None:
     """
     Calculate HP.
 
@@ -19,7 +20,7 @@ def calculate_hp(city: object) -> None:
                 citizen.set_deceased()
 
 
-def calculate_ppe(city: object) -> None:
+def calculate_ppe(city: City) -> None:
     """
     Calculate personal protective equipment.
 
@@ -35,13 +36,13 @@ def calculate_ppe(city: object) -> None:
         if citizen.get_role() == 'medical':
             if num_ppe > 0:
                 num_ppe -= 1
-                citizen.update_prob_infected(0)
+                citizen.update_prob_infected(0.0)
             elif citizen.get_prob_infected() == 0:
                 citizen.update_prob_infected(round(uniform(0.05, 0.12), 2))
     city.set_num_ppe(num_ppe)
 
 
-def medical_assist(city: object) -> None:
+def medical_assist(city: City) -> None:
     """
     Calculate medical assistances.
 
