@@ -25,7 +25,7 @@ def get_latest_statistic(outbreak_statistic: list) -> None:
     for i in range(-3, 0):
         confirmed_list.append(outbreak_statistic[i]['Cases'])
 
-    # USING LIST COMPREHENSION
+    # USING DICTIONARY COMPREHENSION
     latest_three_indication = {date: case_number for date, case_number in zip(date_list, confirmed_list)}
 
     print_outbreak_data(latest_three_indication)
