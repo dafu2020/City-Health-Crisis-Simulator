@@ -75,14 +75,16 @@ def input_settings(setting):
 
 def print_person_stats(city_obj):
     city_citizens_list = city_obj.get_citizens()
-    infected_list = [citizen for citizen in city_citizens_list if citizen.is_infected()]
-    for person_obj in infected_list:
-        print(
-            "HP:{}, Infected %: {:.2f}, Recovery %: {:.2f}, Infected?: {}, Recovered?: {}, Medical Assist?: {}, "
-            "Deceased: {}".format(
-                person_obj.get_hp(), person_obj.get_prob_infected(), person_obj.get_prob_recovery(),
-                person_obj.is_infected(),
-                person_obj.is_recovered(), person_obj.is_medical_assisted(), person_obj.is_deceased()))
+    infected_list = [citizen for citizen in city_citizens_list if citizen.is_infected() and citizen.get_hp() < 3]
+    if infected_list:
+        print("People in critical condition:")
+        for index, person_obj in enumerate(infected_list, 1):
+            print(
+                "{}: HP:{}, Infected %: {:.2f}, Recovery %: {:.2f}, Infected?: {}, Recovered?: {}, "
+                "Medical Assist?: {}, Deceased: {}".format(
+                    index, person_obj.get_hp(), person_obj.get_prob_infected(), person_obj.get_prob_recovery(),
+                    person_obj.is_infected(),
+                    person_obj.is_recovered(), person_obj.is_medical_assisted(), person_obj.is_deceased()))
 
 
 # FUNCTION DECORATOR
@@ -93,7 +95,6 @@ def multiple_iterations(func):
             func(i, *args, **kwargs)
             if i >= num_iterations - 1:
                 break
-
     return wrapper
 
 
@@ -103,7 +104,7 @@ def run_simulation(day_number, city):
     stats = calculate_statistics(city)
     print("----- Day {} -----".format(day_number + 1))
     infection.print_statistics(stats)
-    # print_person_stats(city)
+    print_person_stats(city)
 # lists for plotting
 #     day_counter.append(day + 1)
 #     daily_stats.append(stats[0])
