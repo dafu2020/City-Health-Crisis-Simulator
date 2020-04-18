@@ -50,7 +50,7 @@ def input_settings(setting):
     while num_setting <= 0:
         try:
             num_setting = int(input("{} (Enter a positive integer)\n".format(input_string[setting])))
-            # REGEX for limiting the num_setting, pure numbers only
+            # USE OF AT LEAST ONE REGULAR EXPRESSION, for pure numbers only
             if not bool(re.match(r"^\d+$", str(num_setting))):
                 print('Invalid input. Please try again.')
         except ValueError:

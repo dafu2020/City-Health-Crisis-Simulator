@@ -1,6 +1,7 @@
 import random
 import pprint
 from person import Person
+import doctest
 
 
 class City:
@@ -31,9 +32,6 @@ class City:
         # Add the names of all elements into a Set
         self.__all_element_set = set()
         self.update_set()
-        # Add the names of all elements into a Set
-        self.__all_element_set = set()
-        self.update_set()
         # Add Medical Stuff and Person into city_citizens
         self.instantiate_medical_stuff()
         self.instantiate_person()
@@ -45,24 +43,40 @@ class City:
     def get_num_population(self) -> int:
         """
         Get Number of Population
+
+        >>> vancouver = City(10000, 100, 20000)
+        >>> vancouver.get_num_population()
+        10000
         """
         return self.__num_population
 
     def get_num_medical_staff(self) -> int:
         """
         Get Number of Medical Stuff
+
+        >>> vancouver = City(10000, 100, 20000)
+        >>> vancouver.get_num_medical_staff()
+        100
         """
         return self.__medical_staff
 
     def get_num_total_population(self) -> int:
         """
         Get Total Number of Population
+
+        >>> vancouver = City(10000, 100, 20000)
+        >>> vancouver.get_num_total_population()
+        10100
         """
         return self.__num_population + self.__medical_staff
 
     def get_num_ppe(self) -> int:
         """
         Get Number of Personal Protective Equipment
+
+        >>> vancouver = City(10000, 100, 20000)
+        >>> vancouver.get_num_ppe()
+        20000
         """
         return self.__num_ppe
 
@@ -75,24 +89,40 @@ class City:
     def get_daily_decay(self) -> int:
         """
         Get Daily Decay
+
+        >>> vancouver = City(10000, 100, 20000)
+        >>> 10 <= vancouver.get_daily_decay() <= 20
+        True
         """
         return self.__daily_decay
 
     def get_num_infected(self) -> int:
         """
         Get Number of Infected
+
+        >>> vancouver = City(10000, 100, 20000)
+        >>> vancouver.get_num_infected()
+        0
         """
         return self.__num_infected
 
     def get_num_deceased(self) -> int:
         """
         Get Number of Deceased
+
+        >>> vancouver = City(10000, 100, 20000)
+        >>> 10 <= vancouver.get_num_deceased() <= 20
+        True
         """
         return self.__daily_decay
 
     def get_num_recovered(self) -> int:
         """
         Get Number of Recovery
+
+        >>> vancouver = City(10000, 100, 20000)
+        >>> vancouver.get_num_recovered()
+        0
         """
         return self.__num_recovered
 
@@ -105,6 +135,11 @@ class City:
     def set_num_population(self, new_population: int) -> None:
         """
         Set Number of Population
+
+        >>> vancouver = City(10000, 100, 20000)
+        >>> vancouver.set_num_population(1000)
+        >>> vancouver.get_num_population()
+        1000
         """
         check_number(new_population)
         self.__num_population = new_population
@@ -112,6 +147,11 @@ class City:
     def set_num_medical_stuff(self, new_medical: int) -> None:
         """
         Set Number of Medical Stuff
+
+        >>> vancouver = City(10000, 100, 20000)
+        >>> vancouver.set_num_medical_stuff(500)
+        >>> vancouver.get_num_medical_staff()
+        500
         """
         check_number(new_medical)
         self.__medical_staff = new_medical
@@ -119,28 +159,15 @@ class City:
     def set_num_ppe(self, new_ppe: int) -> None:
         """
         Set Number of PPE
+
+        >>> vancouver = City(10000, 100, 20000)
+        >>> vancouver.set_num_ppe(1000)
+        >>> vancouver.get_num_ppe()
+        1000
         """
         if new_ppe < 0:
             raise ValueError("PPE should be positive.")
         self.__num_ppe = new_ppe
-
-    def set_num_deceased(self, new_deceased: int) -> None:
-        """
-        Set Number of Deceased
-        """
-        self.__num_deceased = new_deceased
-
-    def set_num_recovered(self, new_recovered: int) -> None:
-        """
-        Set Number of Recovered
-        """
-        self.__num_recovered = new_recovered
-
-    def set_daily_decay(self, new_decay: int) -> None:
-        """
-        Set Daily Decay
-        """
-        self.__daily_decay = new_decay
 
     def instantiate_person(self) -> None:
         """
@@ -196,6 +223,7 @@ class City:
         """
         Update the set that has all names
         """
+        # CORRECTLY USE OF AT LEAST ONE SET
         self.__all_element_set = {'num_population', 'num_medical_staff', 'num_ppe', 'num_infected', 'num_deceased',
                                   'num_recovered', 'city_citizens', 'daily_decay'}
 
@@ -206,6 +234,8 @@ def check_number(attribute) -> None:
 
     :raise TypeError: attribute is not an integer
     :raise ValueError: attribute is not positive
+
+    >>> check_number(50)
     """
     if attribute <= 0:
         raise ValueError("Input should be positive.")
@@ -220,21 +250,31 @@ def generate_attribute() -> dict:
     Initial_hp: 80 - 100
 
     :return: The dict that represents the attributes of City
+
+    >>> test = generate_attribute()
+    >>> 0.05 <= test['prob_infection'] <= 0.12
+    True
+    >>> 0.20 <= test['prob_recovery'] <= 0.33
+    True
+    >>> 80 <= test['initial_hp'] <= 100
+    True
     """
     # To easily calculate, all float numbers round to 2 decimals
     prob_infection = round(random.uniform(0.05, 0.12), 2)
     prob_recovery = round(random.uniform(0.20, 0.33), 2)
     initial_hp = random.randint(80, 100)
+    # CORRECT USE OF AT LEAST ONE DICTIONARY
     attribute = {'prob_infection': prob_infection, 'prob_recovery': prob_recovery, 'initial_hp': initial_hp}
     return attribute
 
 
 def main() -> None:
     """
-    Test the Class City
+    Test the Class City, No __str__ and __repr__, only objects
     """
     vancouver = City(10, 2, 1_000_000)
     pprint.pprint(vancouver.get_citizens())
+    doctest.testmod()
 
 
 if __name__ == '__main__':
