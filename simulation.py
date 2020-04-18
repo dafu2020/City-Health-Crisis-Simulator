@@ -94,7 +94,7 @@ def input_settings(setting: str) -> int:
     return num_setting
 
 
-def print_person_stats(city_obj: object):
+def print_person_stats(city_obj: City):
     """ Print the statistics of the city's people in critical condition.
 
     :param city_obj: a city object
@@ -131,7 +131,7 @@ def multiple_iterations(func):
 
 
 @multiple_iterations
-def run_simulation(day_number: int, city: object):
+def run_simulation(day_number: int, city: City):
     """ Run the simulation for day_number amount of days.
 
     :param day_number: a number of days to simulate
@@ -146,7 +146,7 @@ def run_simulation(day_number: int, city: object):
     print_person_stats(city)
 
 
-def daily_calculations(city_obj: object):
+def daily_calculations(city_obj: City):
     """ Calculate the daily change of infected and recovered.
 
     :param city_obj: a city object
@@ -160,7 +160,7 @@ def daily_calculations(city_obj: object):
     infection.calculate_ppe(city_obj)
 
 
-def run_full_simulation(city_obj: object):
+def run_full_simulation(city_obj: City):
     """ Run a full simulation of the infection.
 
     :param city_obj: a city object
@@ -185,7 +185,7 @@ def run_full_simulation(city_obj: object):
         num_healthy = calculate_statistics(city_obj)[3]
 
 
-def change_infected(city_obj: object):
+def change_infected(city_obj: City):
     """ Execute the daily change of infected population.
 
     :param city_obj: a city object
@@ -202,7 +202,7 @@ def change_infected(city_obj: object):
                 citizen.set_infected()
 
 
-def change_recovered(city_obj: object):
+def change_recovered(city_obj: City):
     """ Execute the daily change of recovered population.
 
     :param city_obj: a city object
@@ -219,7 +219,7 @@ def change_recovered(city_obj: object):
                 citizen.set_recovered()
 
 
-def calculate_statistics(city_obj: object) -> (int, int, int, int):
+def calculate_statistics(city_obj: City) -> (int, int, int, int):
     """ Calculate the city's statistics.
 
     :param city_obj: a city object
