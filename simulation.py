@@ -103,11 +103,8 @@ def print_person_stats(city_obj: object):
         # ENUMERATE FUNCTION
         for index, person_obj in enumerate(infected_list, 1):
             print(
-                "{}: HP:{}, Infected %: {:.2f}, Recovery %: {:.2f}, Infected?: {}, Recovered?: {}, "
-                "Medical Assist?: {}, Deceased: {}".format(
-                    index, person_obj.get_hp(), person_obj.get_prob_infected(), person_obj.get_prob_recovery(),
-                    person_obj.is_infected(),
-                    person_obj.is_recovered(), person_obj.is_medical_assisted(), person_obj.is_deceased()))
+                "{}: HP:{}, Medical Assist?: {}, Deceased: {}".format(
+                    index, person_obj.get_hp(), person_obj.is_medical_assisted(), person_obj.is_deceased()))
 
 
 # FUNCTION DECORATOR
