@@ -46,8 +46,8 @@ def initialize_city() -> (int, int, int, int):
 def input_simulation_days() -> int:
     """ Get the user's input for the simulation type and the amount of days to simulate.
 
-    :precondition:
-    :postcondition: the
+    :precondition: no precondition
+    :postcondition: the user's input is validated and returned correctly as an integer
     :return: an integer representing the number of days to simulate
     """
     print("Welcome to the City Health Crisis Simulator. The program attempts to model the operation of a hospital "
@@ -60,11 +60,19 @@ def input_simulation_days() -> int:
     if simulation_type == "1":
         num_simulation_days = input_settings("days")
     else:
+        # use -1 to signify that a full simulation is requested
         num_simulation_days = -1
     return num_simulation_days
 
 
-def input_settings(setting):
+def input_settings(setting: str) -> int:
+    """ Get the user's input for the setting.
+
+    :param setting: a string representing the setting
+    :precondition: setting is a string that is either "days", "population", "staff", or "ppe"
+    :postcondition: the setting is validated and the user's input is returned as an integer
+    :return: an integer
+    """
     input_string = {"days": "How many days to simulate? ",
                     "population": "How many people live in the city? ",
                     "staff": "In addition to the population, how many medical staff members in the city? ",
@@ -81,7 +89,13 @@ def input_settings(setting):
     return num_setting
 
 
-def print_person_stats(city_obj):
+def print_person_stats(city_obj: object):
+    """ Print the statistics of the city's people in critical condition.
+
+    :param city_obj: a city object
+    :precondition: city_obj is a well-formed city object
+    :postcondition: the statistics are properly printed
+    """
     city_citizens_list = city_obj.get_citizens()
     infected_list = [citizen for citizen in city_citizens_list if citizen.is_infected() and citizen.get_hp() < 3]
     if infected_list:
@@ -130,7 +144,13 @@ def run_simulation(day_number: int, city: object):
     print_person_stats(city)
 
 
-def daily_calculations(city_obj):
+def daily_calculations(city_obj: object):
+    """ Calculate the daily change of infected and recovered.
+
+    :param city_obj: a city object
+    :precondition: city_obj is a well-formed city object
+    :postcondition: the daily calculations are properly executed
+    """
     infection.medical_assist(city_obj)
     change_recovered(city_obj)
     change_infected(city_obj)
@@ -138,7 +158,13 @@ def daily_calculations(city_obj):
     infection.calculate_ppe(city_obj)
 
 
-def run_full_simulation(city_obj):
+def run_full_simulation(city_obj: object):
+    """ Run a full simulation of the infection.
+
+    :param city_obj: a city object
+    :precondition: city_obj is a well-formed city object
+    :postcondition: a full simulation is properly executed
+    """
     num_days = 1
     num_recovered = calculate_statistics(city_obj)[1]
     num_deceased = calculate_statistics(city_obj)[2]
@@ -157,7 +183,13 @@ def run_full_simulation(city_obj):
         num_healthy = calculate_statistics(city_obj)[3]
 
 
-def change_infected(city_obj):
+def change_infected(city_obj: object):
+    """ Execute the daily change of infected population.
+
+    :param city_obj: a city object
+    :precondition: city_obj is a well-formed city object
+    :postcondition: the daily change of infected is properly calculated
+    """
     general_infected_rate = round(random.uniform(0.0, 0.5), 2)
     city_citizens_list = city_obj.get_citizens()
     for citizen in city_citizens_list:
@@ -168,7 +200,13 @@ def change_infected(city_obj):
                 citizen.set_infected()
 
 
-def change_recovered(city_obj):
+def change_recovered(city_obj: object):
+    """ Execute the daily change of recovered population.
+
+    :param city_obj: a city object
+    :precondition: city_obj is a well-formed city object
+    :postcondition: the daily change of recovered is properly calculated
+    """
     general_recovered_rate = round(random.uniform(0.1, 1.0), 2)
     city_citizens_list = city_obj.get_citizens()
     for citizen in city_citizens_list:
@@ -179,7 +217,15 @@ def change_recovered(city_obj):
                 citizen.set_recovered()
 
 
-def calculate_statistics(city_obj):
+def calculate_statistics(city_obj: object) -> (int, int, int, int):
+    """ Calculate the city's statistics.
+
+    :param city_obj: a city object
+    :precondition: city_object is a well-formed city object
+    :postcondition: the statistics are properly calculated and returned
+    :return: a tuple containing four integers representing the number of infected, recovered, deceased, and healthy
+    people in the city
+    """
     city_citizens_list = city_obj.get_citizens()
     count_infected = 0
     count_recovered = 0
@@ -193,11 +239,13 @@ def calculate_statistics(city_obj):
         elif citizen.is_deceased():
             count_deceased = count_deceased + 1
     count_healthy = city_obj.get_num_total_population() - count_deceased - count_recovered - count_infected
-
     return count_infected, count_recovered, count_deceased, count_healthy
 
 
 def main():
+    """
+    Drive the program.
+    """
     simulation()
 
 
