@@ -80,7 +80,7 @@ def print_statistics(statistics: (int, int, int, int)) -> None:
     """
 
     num_infected, num_recovered, num_deceased, num_healthy = statistics
-    print(f'✓ Healthy: {num_healthy}')
-    print(f'⚠ Infected: {num_infected}')
+    print(f'❤️ Healthy: {num_healthy}')
+    print(f'⚠️ Infected: {num_infected}')
     print(f'✅ Recovered: {num_recovered}')
     print(f'❌ Deceased: {num_deceased}')
