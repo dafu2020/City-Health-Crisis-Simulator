@@ -8,7 +8,7 @@ This program mimics the operation of a hospital during the COVID-19 crisis.
 
 The purpose is to let the user understand how much pressure a health care facility faces during the crisis. 
 This program will also demonstrate the reason why some health care systems crushed during the breakout.
-The user will be informed about the current number of COVID-19 confirmed cases in Canada, alerting people to stay at home.
+The user will be informed about the current number of COVID-19 confirmed cases in Canada, alerting people to stay at home and respect the work of the medical staff.
 
 
 ## Running
