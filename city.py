@@ -63,31 +63,31 @@ class City:
         """
         return self.__city_citizens
 
-    def get_daily_decay(self):
+    def get_daily_decay(self) -> int:
         """
         Get Daily Decay
         """
         return self.__daily_decay
 
-    def get_num_infected(self):
+    def get_num_infected(self) -> int:
         """
         Get Number of Infected
         """
         return self.__num_infected
 
-    def get_num_deceased(self):
+    def get_num_deceased(self) -> int:
         """
         Get Number of Deceased
         """
         return self.__daily_decay
 
-    def get_num_recovered(self):
+    def get_num_recovered(self) -> int:
         """
         Get Number of Recovery
         """
         return self.__num_recovered
 
-    def get_all_element_set(self):
+    def get_all_element_set(self) -> set:
         """
         Get the set that has all elements
         """
@@ -115,19 +115,19 @@ class City:
             raise ValueError("PPE should be positive.")
         self.__num_ppe = new_ppe
 
-    def set_num_deceased(self, new_deceased):
+    def set_num_deceased(self, new_deceased: int) -> None:
         """
         Set Number of Deceased
         """
         self.__num_deceased = new_deceased
 
-    def set_num_recovered(self, new_recovered):
+    def set_num_recovered(self, new_recovered: int) -> None:
         """
         Set Number of Recovered
         """
         self.__num_recovered = new_recovered
 
-    def set_daily_decay(self, new_decay):
+    def set_daily_decay(self, new_decay: int) -> None:
         """
         Set Daily Decay
         """
@@ -159,7 +159,7 @@ class City:
             person_object = Person(prob_infection, prob_recovery, initial_hp, 'medical')
             self.__city_citizens.append(person_object)
 
-    def update_num_infected(self):
+    def update_num_infected(self) -> None:
         """
         Update the number of deceased
         """
@@ -167,7 +167,7 @@ class City:
             if person_object.is_infected():
                 self.__num_infected += 1
 
-    def update_num_deceased(self):
+    def update_num_deceased(self) -> None:
         """
         Update the number of deceased
         """
@@ -175,7 +175,7 @@ class City:
             if person_object.is_deceased():
                 self.__num_deceased += 1
 
-    def update_num_recovered(self):
+    def update_num_recovered(self) -> None:
         """
         Update the number of recovered
         """
@@ -183,7 +183,7 @@ class City:
             if person_object.is_recovered():
                 self.__num_recovered += 1
 
-    def update_set(self):
+    def update_set(self) -> None:
         """
         Update the set that has all names
         """
@@ -191,7 +191,7 @@ class City:
                                   'num_recovered', 'city_citizens', 'daily_decay'}
 
 
-def check_number(attribute):
+def check_number(attribute) -> None:
     """
     A Helper function that checks the parameter of Class City
 
@@ -220,7 +220,7 @@ def generate_attribute() -> dict:
     return attribute
 
 
-def main():
+def main() -> None:
     """
     Test the Class City
     """
