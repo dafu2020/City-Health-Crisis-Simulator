@@ -64,7 +64,7 @@ def input_settings(setting):
     while num_setting <= 0:
         try:
             num_setting = input("{} (Enter a positive integer)\n".format(input_string[setting]))
-            # num_setting = int(input("{} (Enter a positive integer)\n".format(input_string[setting])))
+            # Regex for limiting the num_setting, pure numbers only
             if not bool(re.match(r"^\d+$", num_setting)):
                 raise ValueError('This is not a valid input.')
         except ValueError:
