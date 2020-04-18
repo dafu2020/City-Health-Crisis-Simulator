@@ -103,6 +103,9 @@ class City:
         >>> vancouver = City(10000, 100, 20000)
         >>> vancouver.get_num_infected()
         0
+        >>> burnaby = City(1000, 10, 2000)
+        >>> burnaby.get_num_infected()
+        0
         """
         return self.__num_infected
 
