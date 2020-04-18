@@ -4,8 +4,12 @@ import json
 
 # USING COVID-19 API
 def get_canada_statistic() -> list:
-    """Fetch the most up to date COVID-19 outbreak statistic from COVID 19 API in Canada
+    """ Fetch the number of COVID-19 confirmed case in Canada
 
+    Fetch the general COVID-19 outbreak data statistics of confirmed cases in Canada
+    :precondition: fetch Canadian COVID-19 outbreak statistics in json objects for each day,
+                    and store them together in a list
+    :postcondition: the fetched information in json objects stored together as a list
     """
     url = 'https://api.covid19api.com/total/country/canada/status/confirmed'
     response = requests.get(url)
@@ -15,7 +19,13 @@ def get_canada_statistic() -> list:
 
 
 def get_latest_statistic(outbreak_statistic: list) -> None:
-    """Get the last three day's number confirmed Covid-19 cases in Canada
+    """Get the number of confirmed COVID-19 cases in Canada from the latest three report
+
+    :param outbreak_statistic: a list
+    :precondition: outbreak_statistic must be a list containing the date and the corresponding number of confirmed
+                    COVID-19 cases in Canada from January to present.
+    :postcondition: print out the date and the corresponding number of confirmed COVID-19 cases
+                    from the latest three report
     """
     date_list = []
     for i in outbreak_statistic[-3:]:   # USING LIST SLICING
@@ -34,8 +44,10 @@ def get_latest_statistic(outbreak_statistic: list) -> None:
 def print_outbreak_data(outbreak_data_dictionary: dict) -> None:
     """Print the date and the corresponding confirmed cases
 
-    :param outbreak_data_dictionary:
-    :return:
+    :param outbreak_data_dictionary: a dictionary
+    :precondition: outbreak_data_dictionary must be a dictionary
+    :postcondition: print out the date and the corresponding number of confirmed COVID-19 cases;
+                    print out a educational message telling people to stay at home
     """
     print(f'\nLet\'s take a look of what is happening in Canada:\n')
     time.sleep(3)
@@ -49,4 +61,14 @@ def print_outbreak_data(outbreak_data_dictionary: dict) -> None:
           f'Please respect the work from our medical staff, together, we can flatten tht curve!\n')
 
 
-get_latest_statistic(get_canada_statistic())
+def main():
+    """
+    Drive the program
+    """
+    confirmed_cases_in_canada = get_canada_statistic()
+    get_latest_statistic(confirmed_cases_in_canada)
+
+
+if __name__ == "__main__":
+    main()
+
