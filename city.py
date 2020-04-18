@@ -16,6 +16,10 @@ class City:
         :raise ValueError: arguments are not positive
         :precondition: population, medical_stuff and PPE must be positive integers
         :postcondition: A object that represents the city
+
+        >>> vancouver = City(10000, 100, 20000)
+        >>> vancouver.get_num_population()
+        10000
         """
         # Check Parameter, Raise an Error if they are not positive or not integer
         check_number(num_population)
