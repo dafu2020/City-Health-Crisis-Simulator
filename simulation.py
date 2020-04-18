@@ -5,6 +5,7 @@ import random
 from city import City
 import infection
 import re
+import itertools
 
 
 def simulation():
@@ -15,7 +16,7 @@ def simulation():
     # num_ppe = simulation_settings[3]
 
     # default numbers for testing instead of entering input everytime
-    num_simulation_days = -1
+    num_simulation_days = 20
     num_population = 10000
     num_medical_staff = 50
     num_ppe = 5000
@@ -87,8 +88,11 @@ def print_person_stats(city_obj):
 # FUNCTION DECORATOR
 def multiple_iterations(func):
     def wrapper(num_iterations, *args, **kwargs):
-        for i in range(num_iterations):
+        # ITERTOOLS FUNCTION
+        for i in itertools.count(0):
             func(i, *args, **kwargs)
+            if i >= num_iterations - 1:
+                break
 
     return wrapper
 
@@ -167,7 +171,6 @@ def calculate_statistics(city_obj):
             count_recovered = count_recovered + 1
         elif citizen.is_deceased():
             count_deceased = count_deceased + 1
-
     count_healthy = city_obj.get_num_total_population() - count_deceased - count_recovered - count_infected
 
     return count_infected, count_recovered, count_deceased, count_healthy
