@@ -28,6 +28,9 @@ class City:
         self.__num_recovered = 0
         self.__city_citizens = []
         self.__daily_decay = random.randint(5, 10)
+        # Add the names of all elements into a Set
+        self.__all_element_set = set()
+        self.update_set()
         # Add Medical Stuff and Person into city_citizens
         self.instantiate_medical_stuff()
         self.instantiate_person()
@@ -66,17 +69,29 @@ class City:
         """
         return self.__daily_decay
 
-    def get_deceased(self):
+    def get_num_infected(self):
+        """
+        Get Number of Infected
+        """
+        return self.__num_infected
+
+    def get_num_deceased(self):
         """
         Get Number of Deceased
         """
         return self.__daily_decay
 
-    def get_recovered(self):
+    def get_num_recovered(self):
         """
         Get Number of Recovery
         """
         return self.__num_recovered
+
+    def get_all_element_set(self):
+        """
+        Get the set that has all elements
+        """
+        return self.__all_element_set
 
     def set_num_population(self, new_population: int) -> None:
         """
@@ -167,6 +182,13 @@ class City:
         for person_object in self.__city_citizens:
             if person_object.is_recovered():
                 self.__num_recovered += 1
+
+    def update_set(self):
+        """
+        Update the set that has all names
+        """
+        self.__all_element_set = {'num_population', 'num_medical_staff', 'num_ppe', 'num_infected', 'num_deceased',
+                                  'num_recovered', 'city_citizens', 'daily_decay'}
 
 
 def check_number(attribute):
